@@ -1,12 +1,14 @@
-name: flutter_blue_example
-description: Demonstrates how to use the flutter_blue plugin.
+name: pinetime_companion
+description: Flutter Companion App for PineTime Smart Watch
 publish_to: "none"
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_blue: ^0.7.2
+  flutter_blue: ^0.7.2  #  Bluetooth LE. From https://github.com/pauldemarco/flutter_blue
+  cbor:         ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
   flutter:
     sdk: flutter
 
