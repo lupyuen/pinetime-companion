@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  cbor:
+    dependency: "direct main"
+    description:
+      name: cbor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   charcode:
     dependency: transitive
     description:
@@ -251,7 +258,7 @@ packages:
     source: hosted
     version: "0.2.15"
   typed_data:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: typed_data
       url: "https://pub.dartlang.org"

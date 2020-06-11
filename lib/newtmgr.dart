@@ -643,8 +643,23 @@ TxOptions NewTxOptions() {
 ////////////////////////////////////////
 //  Send Simple Mgmt Protocol Command to PineTime over Bluetooth LE
 
+void oldMain() {
+  composeRequest();
+}
+
+/// Compose a request to query firmware images on PineTime
+typed.Uint8Buffer composeRequest() {
+  //  Create the SMP Request
+  final req = NewImageStateReadReq();
+
+  //  Encode the SMP Message with CBOR
+  final msg = req.Msg();
+  final data = EncodeNmpPlain(msg);
+  return data;
+}
+
 /// Query firmware images on PineTime
-void old_main() {
+void testCommand() {
   //  Fetch the Bluetooth LE Session
   final s = GetSesn();
 

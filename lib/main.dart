@@ -156,14 +156,9 @@ class DeviceScreen extends StatelessWidget {
 
   final BluetoothDevice device;
 
-  List<int> _getRandomBytes() {
-    final math = Random();
-    return [
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255)
-    ];
+  List<int> _getRequestBytes() {
+    final data = composeRequest();
+    return data;
   }
 
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
@@ -177,7 +172,7 @@ class DeviceScreen extends StatelessWidget {
                     characteristic: c,
                     onReadPressed: () => c.read(),
                     onWritePressed: () async {
-                      await c.write(_getRandomBytes(), withoutResponse: true);
+                      await c.write(_getRequestBytes(), withoutResponse: true);
                       await c.read();
                     },
                     onNotificationPressed: () async {
@@ -189,7 +184,7 @@ class DeviceScreen extends StatelessWidget {
                           (d) => DescriptorTile(
                             descriptor: d,
                             onReadPressed: () => d.read(),
-                            onWritePressed: () => d.write(_getRandomBytes()),
+                            onWritePressed: () => d.write(_getRequestBytes()),
                           ),
                         )
                         .toList(),
