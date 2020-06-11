@@ -173,11 +173,11 @@ class DeviceScreen extends StatelessWidget {
                     onReadPressed: () => c.read(),
                     onWritePressed: () async {
                       await c.write(_getRequestBytes(), withoutResponse: true);
-                      await c.read();
+                      ////TODO: await c.read();  //  Crashes with SMP
                     },
                     onNotificationPressed: () async {
                       await c.setNotifyValue(!c.isNotifying);
-                      await c.read();
+                      ////TODO: await c.read();  //  Crashes with SMP
                     },
                     descriptorTiles: c.descriptors
                         .map(
