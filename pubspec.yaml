@@ -6,9 +6,12 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_blue: ^0.7.2  #  Bluetooth LE. From https://github.com/pauldemarco/flutter_blue
-  cbor:         ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
-  typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+  flutter_blue: ^0.7.2   #  Bluetooth LE. From https://github.com/pauldemarco/flutter_blue
+  cbor:         ^3.2.0   #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data:   ^1.1.6   #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+  flutter_bloc: ^4.0.1   #  State Management. From https://pub.dev/packages/flutter_bloc
+  http:         ^0.12.1  #  HTTP Helper. From https://pub.dev/packages/http
+  equatable:    ^1.2.0   #  Object Equality Helper. From https://pub.dev/packages/equatable
   flutter:
     sdk: flutter
 
@@ -21,3 +24,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
