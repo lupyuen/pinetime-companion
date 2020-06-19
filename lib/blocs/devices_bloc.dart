@@ -74,7 +74,7 @@ class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
   ) async* {
     yield DevicesLoadInProgress();
     try {
-      final Devices devices = await DevicesRepository.getDevices(event.city);
+      final Devices devices = await devicesRepository.getDevices(event.city);
       yield DevicesLoadSuccess(devices: devices);
     } catch (_) {
       yield DevicesLoadFailure();
@@ -85,7 +85,7 @@ class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
     DevicesRefreshRequested event,
   ) async* {
     try {
-      final Devices devices = await DevicesRepository.getDevices(event.city);
+      final Devices devices = await devicesRepository.getDevices(event.city);
       yield DevicesLoadSuccess(devices: devices);
     } catch (_) {
       yield state;
