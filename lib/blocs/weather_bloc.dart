@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:flutter_weather/repositories/repositories.dart';
-import 'package:flutter_weather/models/models.dart';
+import '../repositories/repositories.dart';
+import '../models/models.dart';
 
 abstract class WeatherEvent extends Equatable {
   const WeatherEvent();

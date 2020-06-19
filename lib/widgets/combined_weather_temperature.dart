@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_weather/blocs/blocs.dart';
-import 'package:flutter_weather/models/models.dart' as model;
-import 'package:flutter_weather/widgets/widgets.dart';
+import '../blocs/blocs.dart';
+import '../models/models.dart' as model;
+import '../widgets/widgets.dart';
 
 class CombinedWeatherTemperature extends StatelessWidget {
   final model.Weather weather;
