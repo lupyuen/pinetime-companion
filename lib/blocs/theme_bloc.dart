@@ -24,6 +24,15 @@ abstract class ThemeEvent extends Equatable {
   const ThemeEvent();
 }
 
+class DevicesChanged extends ThemeEvent {
+  final DevicesCondition condition;
+
+  const DevicesChanged({@required this.condition}) : assert(condition != null);
+
+  @override
+  List<Object> get props => [condition];
+}
+
 class WeatherChanged extends ThemeEvent {
   final WeatherCondition condition;
 
@@ -44,6 +53,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
     if (event is WeatherChanged) {
       yield _mapWeatherConditionToThemeData(event.condition);
+    } else if (event is DevicesChanged) {
+      yield _mapDevicesConditionToThemeData(event.condition);
     }
   }
 
