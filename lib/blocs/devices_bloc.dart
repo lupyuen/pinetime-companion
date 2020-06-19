@@ -41,9 +41,9 @@ class DevicesInitial extends DevicesState {}
 class DevicesLoadInProgress extends DevicesState {}
 
 class DevicesLoadSuccess extends DevicesState {
-  final Devices Devices;
+  final Devices devices;
 
-  const DevicesLoadSuccess({@required this.Devices}) : assert(Devices != null);
+  const DevicesLoadSuccess({@required this.devices}) : assert(devices != null);
 
   @override
   List<Object> get props => [Devices];
@@ -52,10 +52,10 @@ class DevicesLoadSuccess extends DevicesState {
 class DevicesLoadFailure extends DevicesState {}
 
 class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
-  final DevicesRepository DevicesRepository;
+  final DevicesRepository devicesRepository;
 
-  DevicesBloc({@required this.DevicesRepository})
-      : assert(DevicesRepository != null);
+  DevicesBloc({@required this.devicesRepository})
+      : assert(devicesRepository != null);
 
   @override
   DevicesState get initialState => DevicesInitial();
@@ -74,8 +74,8 @@ class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
   ) async* {
     yield DevicesLoadInProgress();
     try {
-      final Devices Devices = await DevicesRepository.getDevices(event.city);
-      yield DevicesLoadSuccess(Devices: Devices);
+      final Devices devices = await DevicesRepository.getDevices(event.city);
+      yield DevicesLoadSuccess(devices: devices);
     } catch (_) {
       yield DevicesLoadFailure();
     }
@@ -85,8 +85,8 @@ class DevicesBloc extends Bloc<DevicesEvent, DevicesState> {
     DevicesRefreshRequested event,
   ) async* {
     try {
-      final Devices Devices = await DevicesRepository.getDevices(event.city);
-      yield DevicesLoadSuccess(Devices: Devices);
+      final Devices devices = await DevicesRepository.getDevices(event.city);
+      yield DevicesLoadSuccess(devices: devices);
     } catch (_) {
       yield state;
     }

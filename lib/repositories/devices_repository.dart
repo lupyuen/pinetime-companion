@@ -6,13 +6,13 @@ import '../repositories/devices_api_client.dart';
 import '../models/models.dart';
 
 class DevicesRepository {
-  final DevicesApiClient DevicesApiClient;
+  final DevicesApiClient devicesApiClient;
 
-  DevicesRepository({@required this.DevicesApiClient})
-      : assert(DevicesApiClient != null);
+  DevicesRepository({@required this.devicesApiClient})
+      : assert(devicesApiClient != null);
 
   Future<Devices> getDevices(String city) async {
-    final int locationId = await DevicesApiClient.getLocationId(city);
-    return DevicesApiClient.fetchDevices(locationId);
+    final int locationId = await devicesApiClient.getLocationId(city);
+    return devicesApiClient.fetchDevices(locationId);
   }
 }

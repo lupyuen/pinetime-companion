@@ -58,7 +58,7 @@ class _DevicesState extends State<Devices> {
           listener: (context, state) {
             if (state is DevicesLoadSuccess) {
               BlocProvider.of<ThemeBloc>(context).add(
-                DevicesChanged(condition: state.Devices.condition),
+                DevicesChanged(condition: state.devices.condition),
               );
               _refreshCompleter?.complete();
               _refreshCompleter = Completer();
@@ -69,7 +69,7 @@ class _DevicesState extends State<Devices> {
               return Center(child: CircularProgressIndicator());
             }
             if (state is DevicesLoadSuccess) {
-              final Devices = state.Devices;
+              final devices = state.devices;
 
               return BlocBuilder<ThemeBloc, ThemeState>(
                 builder: (context, themeState) {
@@ -78,7 +78,7 @@ class _DevicesState extends State<Devices> {
                     child: RefreshIndicator(
                       onRefresh: () {
                         BlocProvider.of<DevicesBloc>(context).add(
-                          DevicesRefreshRequested(city: Devices.location),
+                          DevicesRefreshRequested(city: devices.location),
                         );
                         return _refreshCompleter.future;
                       },
@@ -87,17 +87,17 @@ class _DevicesState extends State<Devices> {
                           Padding(
                             padding: EdgeInsets.only(top: 100.0),
                             child: Center(
-                              child: Location(location: Devices.location),
+                              child: Location(location: devices.location),
                             ),
                           ),
                           Center(
-                            child: LastUpdated(dateTime: Devices.lastUpdated),
+                            child: LastUpdated(dateTime: devices.lastUpdated),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),
                             child: Center(
                               child: CombinedDevicesTemperature(
-                                Devices: Devices,
+                                Devices: devices,
                               ),
                             ),
                           ),
