@@ -21,18 +21,24 @@ void main() {
       httpClient: http.Client(),
     ),
   );
+
   BlocSupervisor.delegate = SimpleBlocDelegate();
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(),
         ),
+
         BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(),
         ),
       ],
-      child: App(weatherRepository: weatherRepository),
+
+      child: App(
+        weatherRepository: weatherRepository
+      ),
     ),
   );
 }
@@ -49,14 +55,18 @@ class App extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, themeState) {
         return MaterialApp(
-          title: 'Flutter Weather',
+          title: 'PineTime Companion',
           theme: themeState.theme,
+
           home: BlocProvider(
             create: (context) => WeatherBloc(
               weatherRepository: weatherRepository,
             ),
+
+            //  App starts with the Weather widget
             child: Weather(),
           ),
+
         );
       },
     );

@@ -1,15 +1,16 @@
+//  Browse Bluetooth LE Devices
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
 import '../blocs/blocs.dart';
 
-class Weather extends StatefulWidget {
+class Devices extends StatefulWidget {
   @override
-  State<Weather> createState() => _WeatherState();
+  State<Devices> createState() => _DevicesState();
 }
 
-class _WeatherState extends State<Weather> {
+class _DevicesState extends State<Devices> {
   Completer<void> _refreshCompleter;
 
   @override
@@ -45,30 +46,30 @@ class _WeatherState extends State<Weather> {
                 ),
               );
               if (city != null) {
-                BlocProvider.of<WeatherBloc>(context)
-                    .add(WeatherRequested(city: city));
+                BlocProvider.of<DevicesBloc>(context)
+                    .add(DevicesRequested(city: city));
               }
             },
           )
         ],
       ),
       body: Center(
-        child: BlocConsumer<WeatherBloc, WeatherState>(
+        child: BlocConsumer<DevicesBloc, DevicesState>(
           listener: (context, state) {
-            if (state is WeatherLoadSuccess) {
+            if (state is DevicesLoadSuccess) {
               BlocProvider.of<ThemeBloc>(context).add(
-                WeatherChanged(condition: state.weather.condition),
+                DevicesChanged(condition: state.Devices.condition),
               );
               _refreshCompleter?.complete();
               _refreshCompleter = Completer();
             }
           },
           builder: (context, state) {
-            if (state is WeatherLoadInProgress) {
+            if (state is DevicesLoadInProgress) {
               return Center(child: CircularProgressIndicator());
             }
-            if (state is WeatherLoadSuccess) {
-              final weather = state.weather;
+            if (state is DevicesLoadSuccess) {
+              final Devices = state.Devices;
 
               return BlocBuilder<ThemeBloc, ThemeState>(
                 builder: (context, themeState) {
@@ -76,8 +77,8 @@ class _WeatherState extends State<Weather> {
                     color: themeState.color,
                     child: RefreshIndicator(
                       onRefresh: () {
-                        BlocProvider.of<WeatherBloc>(context).add(
-                          WeatherRefreshRequested(city: weather.location),
+                        BlocProvider.of<DevicesBloc>(context).add(
+                          DevicesRefreshRequested(city: Devices.location),
                         );
                         return _refreshCompleter.future;
                       },
@@ -86,17 +87,17 @@ class _WeatherState extends State<Weather> {
                           Padding(
                             padding: EdgeInsets.only(top: 100.0),
                             child: Center(
-                              child: Location(location: weather.location),
+                              child: Location(location: Devices.location),
                             ),
                           ),
                           Center(
-                            child: LastUpdated(dateTime: weather.lastUpdated),
+                            child: LastUpdated(dateTime: Devices.lastUpdated),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),
                             child: Center(
-                              child: CombinedWeatherTemperature(
-                                weather: weather,
+                              child: CombinedDevicesTemperature(
+                                Devices: Devices,
                               ),
                             ),
                           ),
@@ -107,7 +108,7 @@ class _WeatherState extends State<Weather> {
                 },
               );
             }
-            if (state is WeatherLoadFailure) {
+            if (state is DevicesLoadFailure) {
               return Text(
                 'Something went wrong!',
                 style: TextStyle(color: Colors.red),
