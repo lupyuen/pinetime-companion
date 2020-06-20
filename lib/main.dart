@@ -16,8 +16,8 @@ import 'widgets.dart';
 import 'newtmgr.dart';
 
 void main() {
-  final WeatherRepository weatherRepository = WeatherRepository(
-    weatherApiClient: WeatherApiClient(
+  final DevicesRepository devicesRepository = DevicesRepository(
+    devicesApiClient: DevicesApiClient(
       httpClient: http.Client(),
     ),
   );
@@ -37,17 +37,17 @@ void main() {
       ],
 
       child: App(
-        weatherRepository: weatherRepository
+        devicesRepository: devicesRepository
       ),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  final WeatherRepository weatherRepository;
+  final DevicesRepository devicesRepository;
 
-  App({Key key, @required this.weatherRepository})
-      : assert(weatherRepository != null),
+  App({Key key, @required this.devicesRepository})
+      : assert(devicesRepository != null),
         super(key: key);
 
   @override
@@ -59,8 +59,8 @@ class App extends StatelessWidget {
           theme: themeState.theme,
 
           home: BlocProvider(
-            create: (context) => WeatherBloc(
-              weatherRepository: weatherRepository,
+            create: (context) => DevicesBloc(
+              devicesRepository: devicesRepository,
             ),
 
             //  App starts with the Devices widget
