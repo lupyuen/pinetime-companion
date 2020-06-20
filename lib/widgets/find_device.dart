@@ -11,6 +11,8 @@ class FindDevice extends StatefulWidget {
 }
 
 class _FindDeviceState extends State<FindDevice> {
+  final TextEditingController _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
