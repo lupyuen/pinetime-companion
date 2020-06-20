@@ -1,21 +1,31 @@
-//  Client API for browsing Bluetooth LE device
-import 'dart:convert';
+//  Client API for accessing Bluetooth LE device
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import '../models/models.dart';
 
 class DeviceApiClient {
-  Future<Device> fetchDevice(BluetoothDevice btdevice) async {
+  /// Connect to the Bluetooth LE device and list the services
+  Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+    print('Fetching device...\n');
+    //  Connect to the device
+    await bluetoothDevice.connect();
+
+    //  Discover the services
+    List<BluetoothService> services = await bluetoothDevice.discoverServices();
+    services.forEach((service) {
+      print('${service.toString()}\n');
+    });
+
     final device = Device(
       condition: DeviceCondition.clear,
-      formattedCondition: btdevice.name, //// 'Ready for firmware update',
+      formattedCondition: bluetoothDevice.name, //// 'Ready for firmware update',
       minTemp: 0,
       temp: 1,
       maxTemp: 1,
       locationId: 0,
       lastUpdated: DateTime.now(),
-      location: 'location'
+      location: 'location',
+      bluetoothDevice: bluetoothDevice
     );
     return device;
   }

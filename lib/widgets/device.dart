@@ -1,4 +1,4 @@
-//  Widget to browse Bluetooth LE Device
+//  Widget for accessing Bluetooth LE Device
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

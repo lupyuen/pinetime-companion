@@ -1,5 +1,6 @@
-//  Data Model for browsing Bluetooth LE device
+//  Data Model for Bluetooth LE device
 import 'package:equatable/equatable.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 enum DeviceCondition {
   snow,
@@ -25,6 +26,7 @@ class Device extends Equatable {
   final String created;
   final DateTime lastUpdated;
   final String location;
+  final BluetoothDevice bluetoothDevice;
 
   const Device({
     this.condition,
@@ -36,6 +38,7 @@ class Device extends Equatable {
     this.created,
     this.lastUpdated,
     this.location,
+    this.bluetoothDevice
   });
 
   @override
@@ -49,6 +52,7 @@ class Device extends Equatable {
         created,
         lastUpdated,
         location,
+        bluetoothDevice,
       ];
 
   static Device fromJson(dynamic json) {

@@ -1,4 +1,4 @@
-//  Business Logic for browsing Bluetooth LE device
+//  Business Logic for Bluetooth LE device
 import 'dart:async';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:meta/meta.dart';

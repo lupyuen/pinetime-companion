@@ -1,4 +1,4 @@
-//  Data Store for browsing Bluetooth LE device
+//  Data Store for Bluetooth LE device
 import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:flutter_blue/flutter_blue.dart';
