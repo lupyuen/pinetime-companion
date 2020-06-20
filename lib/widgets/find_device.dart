@@ -7,7 +7,7 @@ import '../newtmgr.dart';
 
 class FindDevice extends StatefulWidget {
   @override
-  State<FindDevice> createState() => _FindDeviceState();
+  State<FindDevice> createState() => FindDeviceScreen();
 }
 
 class _FindDeviceState extends State<FindDevice> {
@@ -37,6 +37,7 @@ class _FindDeviceState extends State<FindDevice> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
+                //  TODO
                 Navigator.pop(context, _textController.text);
               },
             )
@@ -47,6 +48,7 @@ class _FindDeviceState extends State<FindDevice> {
   }
 }
 
+/*
 class FlutterBlueApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class FlutterBlueApp extends StatelessWidget {
     );
   }
 }
+*/
 
 class BluetoothOffScreen extends StatelessWidget {
   const BluetoothOffScreen({Key key, this.state}) : super(key: key);
@@ -98,7 +101,7 @@ class BluetoothOffScreen extends StatelessWidget {
   }
 }
 
-class FindDeviceScreen extends StatelessWidget {
+class FindDeviceScreen extends State<FindDevice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
