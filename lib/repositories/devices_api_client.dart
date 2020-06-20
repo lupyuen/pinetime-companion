@@ -1,9 +1,8 @@
+//  Client API for browsing Bluetooth LE devices
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-
 import '../models/models.dart';
 
 class DevicesApiClient {

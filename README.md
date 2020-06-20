@@ -1,6 +1,6 @@
 # Flutter Companion App for PineTime Smart Watch (Android and iOS).
 
-This `bloc` branch includes Bloc State Management for the Flutter App.
+This `bloc` branch includes [Bloc State Management](https://bloclibrary.dev/#/)
 
 Refer to the articles...
 
@@ -8,4 +8,4 @@ Refer to the articles...
 
 1. [_"Your First Bluetooth Low Energy App with Flutter"_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)
 
-Based on https://github.com/felangel/Bloc/tree/master/examples/flutter_weather
+Based on [Bloc `flutter_weather` sample](https://github.com/felangel/Bloc/tree/master/examples/flutter_weather)

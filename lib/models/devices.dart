@@ -1,3 +1,4 @@
+//  Data Model for browsing Bluetooth LE devices
 import 'package:equatable/equatable.dart';
 
 enum DevicesCondition {

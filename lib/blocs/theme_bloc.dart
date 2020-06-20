@@ -58,6 +58,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     }
   }
 
+  /// Return the theme based on the current condition
   ThemeState _mapDevicesConditionToTheme(DevicesCondition condition) {
     ThemeState theme;
     theme = ThemeState(

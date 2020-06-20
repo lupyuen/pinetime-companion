@@ -1,7 +1,6 @@
+//  Data Store for browsing Bluetooth LE devices
 import 'dart:async';
-
 import 'package:meta/meta.dart';
-
 import '../repositories/devices_api_client.dart';
 import '../models/models.dart';
 
