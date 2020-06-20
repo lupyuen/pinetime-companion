@@ -54,8 +54,19 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     if (event is WeatherChanged) {
       yield _mapWeatherConditionToThemeData(event.condition);
     } else if (event is DevicesChanged) {
-      yield _mapDevicesConditionToThemeData(event.condition);
+      yield _mapDevicesConditionToTheme(event.condition);
     }
+  }
+
+  ThemeState _mapDevicesConditionToTheme(DevicesCondition condition) {
+    ThemeState theme;
+    theme = ThemeState(
+      theme: ThemeData(
+        primaryColor: Colors.indigoAccent,
+      ),
+      color: Colors.indigo,
+    );
+    return theme;
   }
 
   ThemeState _mapWeatherConditionToThemeData(WeatherCondition condition) {

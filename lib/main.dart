@@ -63,8 +63,8 @@ class App extends StatelessWidget {
               weatherRepository: weatherRepository,
             ),
 
-            //  App starts with the Weather widget
-            child: Weather(),
+            //  App starts with the Devices widget
+            child: Devices(),
           ),
 
         );

@@ -13,6 +13,7 @@ class DevicesApiClient {
   DevicesApiClient({@required this.httpClient}) : assert(httpClient != null);
 
   Future<int> getLocationId(String city) async {
+    /*
     final locationUrl = '$baseUrl/api/location/search/?query=$city';
     final locationResponse = await this.httpClient.get(locationUrl);
     if (locationResponse.statusCode != 200) {
@@ -21,9 +22,11 @@ class DevicesApiClient {
 
     final locationJson = jsonDecode(locationResponse.body) as List;
     return (locationJson.first)['woeid'];
+    */
   }
 
   Future<Devices> fetchDevices(int locationId) async {
+    /*
     final DevicesUrl = '$baseUrl/api/location/$locationId';
     final DevicesResponse = await this.httpClient.get(DevicesUrl);
 
@@ -33,5 +36,6 @@ class DevicesApiClient {
 
     final DevicesJson = jsonDecode(DevicesResponse.body);
     return Devices.fromJson(DevicesJson);
+    */
   }
 }

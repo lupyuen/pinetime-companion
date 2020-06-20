@@ -95,11 +95,13 @@ class _DevicesState extends State<Devices> {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),
+                            /* TODO
                             child: Center(
                               child: CombinedDevicesTemperature(
                                 Devices: devices,
                               ),
                             ),
+                            */
                           ),
                         ],
                       ),
