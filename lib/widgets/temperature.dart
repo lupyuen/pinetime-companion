@@ -20,10 +20,11 @@ class Temperature extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        /*
         Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text(
-            '${_formattedTemperature(temperature)}°',
+            '1.${_formattedTemperature(temperature)}.0',
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w600,
@@ -31,10 +32,11 @@ class Temperature extends StatelessWidget {
             ),
           ),
         ),
+        */
         Column(
           children: [
             Text(
-              'max: ${_formattedTemperature(high)}°',
+              'Active Firmware: 1.${_formattedTemperature(high)}.0',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,
@@ -42,7 +44,7 @@ class Temperature extends StatelessWidget {
               ),
             ),
             Text(
-              'min: ${_formattedTemperature(low)}°',
+              'Standby Firmware: 1.${_formattedTemperature(low)}.0',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,

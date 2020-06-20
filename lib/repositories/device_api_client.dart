@@ -12,10 +12,10 @@ class DeviceApiClient {
   Future<Device> fetchDevice(int locationId) async {
     final device = Device(
       condition: DeviceCondition.clear,
-      formattedCondition: 'formattedCondition',
-      minTemp: 0,
-      temp: 50,
-      maxTemp: 99,
+      formattedCondition: 'Ready for firmware update',
+      minTemp: 1,
+      temp: 1,
+      maxTemp: 0,
       locationId: 0,
       lastUpdated: DateTime.now(),
       location: 'location'
