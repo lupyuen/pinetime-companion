@@ -1,7 +1,7 @@
-//  Data Model for browsing Bluetooth LE devices
+//  Data Model for browsing Bluetooth LE device
 import 'package:equatable/equatable.dart';
 
-enum DevicesCondition {
+enum DeviceCondition {
   snow,
   sleet,
   hail,
@@ -15,8 +15,8 @@ enum DevicesCondition {
   unknown
 }
 
-class Devices extends Equatable {
-  final DevicesCondition condition;
+class Device extends Equatable {
+  final DeviceCondition condition;
   final String formattedCondition;
   final double minTemp;
   final double temp;
@@ -26,7 +26,7 @@ class Devices extends Equatable {
   final DateTime lastUpdated;
   final String location;
 
-  const Devices({
+  const Device({
     this.condition,
     this.formattedCondition,
     this.minTemp,
@@ -51,57 +51,57 @@ class Devices extends Equatable {
         location,
       ];
 
-  static Devices fromJson(dynamic json) {
-    final consolidatedDevices = json['consolidated_Devices'][0];
-    return Devices(
-      condition: _mapStringToDevicesCondition(
-          consolidatedDevices['Devices_state_abbr']),
-      formattedCondition: consolidatedDevices['Devices_state_name'],
-      minTemp: consolidatedDevices['min_temp'] as double,
-      temp: consolidatedDevices['the_temp'] as double,
-      maxTemp: consolidatedDevices['max_temp'] as double,
+  static Device fromJson(dynamic json) {
+    final consolidatedDevice = json['consolidated_Device'][0];
+    return Device(
+      condition: _mapStringToDeviceCondition(
+          consolidatedDevice['Device_state_abbr']),
+      formattedCondition: consolidatedDevice['Device_state_name'],
+      minTemp: consolidatedDevice['min_temp'] as double,
+      temp: consolidatedDevice['the_temp'] as double,
+      maxTemp: consolidatedDevice['max_temp'] as double,
       locationId: json['woeid'] as int,
-      created: consolidatedDevices['created'],
+      created: consolidatedDevice['created'],
       lastUpdated: DateTime.now(),
       location: json['title'],
     );
   }
 
-  static DevicesCondition _mapStringToDevicesCondition(String input) {
-    DevicesCondition state;
+  static DeviceCondition _mapStringToDeviceCondition(String input) {
+    DeviceCondition state;
     switch (input) {
       case 'sn':
-        state = DevicesCondition.snow;
+        state = DeviceCondition.snow;
         break;
       case 'sl':
-        state = DevicesCondition.sleet;
+        state = DeviceCondition.sleet;
         break;
       case 'h':
-        state = DevicesCondition.hail;
+        state = DeviceCondition.hail;
         break;
       case 't':
-        state = DevicesCondition.thunderstorm;
+        state = DeviceCondition.thunderstorm;
         break;
       case 'hr':
-        state = DevicesCondition.heavyRain;
+        state = DeviceCondition.heavyRain;
         break;
       case 'lr':
-        state = DevicesCondition.lightRain;
+        state = DeviceCondition.lightRain;
         break;
       case 's':
-        state = DevicesCondition.showers;
+        state = DeviceCondition.showers;
         break;
       case 'hc':
-        state = DevicesCondition.heavyCloud;
+        state = DeviceCondition.heavyCloud;
         break;
       case 'lc':
-        state = DevicesCondition.lightCloud;
+        state = DeviceCondition.lightCloud;
         break;
       case 'c':
-        state = DevicesCondition.clear;
+        state = DeviceCondition.clear;
         break;
       default:
-        state = DevicesCondition.unknown;
+        state = DeviceCondition.unknown;
     }
     return state;
   }

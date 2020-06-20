@@ -1,2 +1,2 @@
-export './devices.dart';
+export './device.dart';
 export './weather.dart';

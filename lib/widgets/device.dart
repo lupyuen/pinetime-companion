@@ -1,4 +1,4 @@
-//  Widget to browse Bluetooth LE Devices
+//  Widget to browse Bluetooth LE Device
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,12 +8,12 @@ import '../blocs/blocs.dart';
 import '../widgets.dart';
 import '../newtmgr.dart';
 
-class Devices extends StatefulWidget {
+class Device extends StatefulWidget {
   @override
-  State<Devices> createState() => _DevicesState();
+  State<Device> createState() => _DeviceState();
 }
 
-class _DevicesState extends State<Devices> {
+class _DeviceState extends State<Device> {
   Completer<void> _refreshCompleter;
 
   @override
@@ -49,30 +49,30 @@ class _DevicesState extends State<Devices> {
                 ),
               );
               if (city != null) {
-                BlocProvider.of<DevicesBloc>(context)
-                    .add(DevicesRequested(city: city));
+                BlocProvider.of<DeviceBloc>(context)
+                    .add(DeviceRequested(city: city));
               }
             },
           )
         ],
       ),
       body: Center(
-        child: BlocConsumer<DevicesBloc, DevicesState>(
+        child: BlocConsumer<DeviceBloc, DeviceState>(
           listener: (context, state) {
-            if (state is DevicesLoadSuccess) {
+            if (state is DeviceLoadSuccess) {
               BlocProvider.of<ThemeBloc>(context).add(
-                DevicesChanged(condition: state.devices.condition),
+                DeviceChanged(condition: state.device.condition),
               );
               _refreshCompleter?.complete();
               _refreshCompleter = Completer();
             }
           },
           builder: (context, state) {
-            if (state is DevicesLoadInProgress) {
+            if (state is DeviceLoadInProgress) {
               return Center(child: CircularProgressIndicator());
             }
-            if (state is DevicesLoadSuccess) {
-              final devices = state.devices;
+            if (state is DeviceLoadSuccess) {
+              final device = state.device;
 
               return BlocBuilder<ThemeBloc, ThemeState>(
                 builder: (context, themeState) {
@@ -80,8 +80,8 @@ class _DevicesState extends State<Devices> {
                     color: themeState.color,
                     child: RefreshIndicator(
                       onRefresh: () {
-                        BlocProvider.of<DevicesBloc>(context).add(
-                          DevicesRefreshRequested(city: devices.location),
+                        BlocProvider.of<DeviceBloc>(context).add(
+                          DeviceRefreshRequested(city: device.location),
                         );
                         return _refreshCompleter.future;
                       },
@@ -90,18 +90,18 @@ class _DevicesState extends State<Devices> {
                           Padding(
                             padding: EdgeInsets.only(top: 100.0),
                             child: Center(
-                              child: Location(location: devices.location),
+                              child: Location(location: device.location),
                             ),
                           ),
                           Center(
-                            child: LastUpdated(dateTime: devices.lastUpdated),
+                            child: LastUpdated(dateTime: device.lastUpdated),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),
                             /* TODO
                             child: Center(
-                              child: CombinedDevicesTemperature(
-                                Devices: devices,
+                              child: CombinedDeviceTemperature(
+                                Device: device,
                               ),
                             ),
                             */
@@ -113,7 +113,7 @@ class _DevicesState extends State<Devices> {
                 },
               );
             }
-            if (state is DevicesLoadFailure) {
+            if (state is DeviceLoadFailure) {
               return Text(
                 'Something went wrong!',
                 style: TextStyle(color: Colors.red),
@@ -139,7 +139,7 @@ class FlutterBlueApp extends StatelessWidget {
           builder: (c, snapshot) {
             final state = snapshot.data;
             if (state == BluetoothState.on) {
-              return FindDevicesScreen();
+              return FindDeviceScreen();
             }
             return BluetoothOffScreen(state: state);
           }),
@@ -179,12 +179,12 @@ class BluetoothOffScreen extends StatelessWidget {
   }
 }
 
-class FindDevicesScreen extends StatelessWidget {
+class FindDeviceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Find Devices'),
+        title: Text('Find Device'),
       ),
       body: RefreshIndicator(
         onRefresh: () =>
@@ -212,7 +212,7 @@ class FindDevicesScreen extends StatelessWidget {
                                     onPressed: () => Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DeviceScreen(device: d))),
+                                                Devicecreen(device: d))),
                                   );
                                 }
                                 return Text(snapshot.data.toString());
@@ -233,7 +233,7 @@ class FindDevicesScreen extends StatelessWidget {
                           onTap: () => Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
                             r.device.connect();
-                            return DeviceScreen(device: r.device);
+                            return Devicecreen(device: r.device);
                           })),
                         ),
                       )
@@ -266,8 +266,8 @@ class FindDevicesScreen extends StatelessWidget {
   }
 }
 
-class DeviceScreen extends StatelessWidget {
-  const DeviceScreen({Key key, this.device}) : super(key: key);
+class Devicecreen extends StatelessWidget {
+  const Devicecreen({Key key, this.device}) : super(key: key);
 
   final BluetoothDevice device;
 

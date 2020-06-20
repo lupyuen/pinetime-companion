@@ -1,17 +1,17 @@
-//  Client API for browsing Bluetooth LE devices
+//  Client API for browsing Bluetooth LE device
 import 'dart:convert';
 import 'dart:async';
 import 'package:meta/meta.dart';
 import '../models/models.dart';
 
-class DevicesApiClient {
+class DeviceApiClient {
   Future<int> getLocationId(String city) async {
     return 0;
   }
 
-  Future<Devices> fetchDevices(int locationId) async {
-    final devices = Devices(
-      condition: DevicesCondition.clear,
+  Future<Device> fetchDevice(int locationId) async {
+    final device = Device(
+      condition: DeviceCondition.clear,
       formattedCondition: 'formattedCondition',
       minTemp: 0,
       temp: 50,
@@ -20,7 +20,7 @@ class DevicesApiClient {
       lastUpdated: DateTime.now(),
       location: 'location'
     );
-    return devices;
+    return device;
   }
 }
 
@@ -34,13 +34,13 @@ if (locationResponse.statusCode != 200) {
 final locationJson = jsonDecode(locationResponse.body) as List;
 return (locationJson.first)['woeid'];
 
-final DevicesUrl = '$baseUrl/api/location/$locationId';
-final DevicesResponse = await this.httpClient.get(DevicesUrl);
+final DeviceUrl = '$baseUrl/api/location/$locationId';
+final DeviceResponse = await this.httpClient.get(DeviceUrl);
 
-if (DevicesResponse.statusCode != 200) {
-  throw Exception('error getting Devices for location');
+if (DeviceResponse.statusCode != 200) {
+  throw Exception('error getting Device for location');
 }
 
-final DevicesJson = jsonDecode(DevicesResponse.body);
-return Devices.fromJson(DevicesJson);
+final DeviceJson = jsonDecode(DeviceResponse.body);
+return Device.fromJson(DeviceJson);
 */

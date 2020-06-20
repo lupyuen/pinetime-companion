@@ -8,8 +8,9 @@ import 'repositories/repositories.dart';
 import 'blocs/blocs.dart';
 
 void main() {
-  final DevicesRepository devicesRepository = DevicesRepository(
-    devicesApiClient: DevicesApiClient(),
+  //  Data store for browsing Bluetooth LE device
+  final DeviceRepository deviceRepository = DeviceRepository(
+    deviceApiClient: DeviceApiClient(),
   );
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -27,17 +28,17 @@ void main() {
       ],
 
       child: App(
-        devicesRepository: devicesRepository
+        deviceRepository: deviceRepository
       ),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  final DevicesRepository devicesRepository;
+  final DeviceRepository deviceRepository;
 
-  App({Key key, @required this.devicesRepository})
-      : assert(devicesRepository != null),
+  App({Key key, @required this.deviceRepository})
+      : assert(deviceRepository != null),
         super(key: key);
 
   @override
@@ -49,12 +50,12 @@ class App extends StatelessWidget {
           theme: themeState.theme,
 
           home: BlocProvider(
-            create: (context) => DevicesBloc(
-              devicesRepository: devicesRepository,
+            create: (context) => DeviceBloc(
+              deviceRepository: deviceRepository,
             ),
 
-            //  App starts with the Devices widget
-            child: Devices(),
+            //  App starts with the Device widget
+            child: Device(),
           ),
 
         );
