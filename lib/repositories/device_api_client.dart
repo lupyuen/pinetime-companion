@@ -13,9 +13,9 @@ class DeviceApiClient {
     final device = Device(
       condition: DeviceCondition.clear,
       formattedCondition: 'Ready for firmware update',
-      minTemp: 1,
+      minTemp: 0,
       temp: 1,
-      maxTemp: 0,
+      maxTemp: 1,
       locationId: 0,
       lastUpdated: DateTime.now(),
       location: 'location'
