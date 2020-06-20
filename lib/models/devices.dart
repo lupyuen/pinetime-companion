@@ -56,7 +56,7 @@ class Devices extends Equatable {
     return Devices(
       condition: _mapStringToDevicesCondition(
           consolidatedDevices['Devices_state_abbr']),
-      formattedCondition: 'Lockdown No More Yay!', //// consolidatedDevices['Devices_state_name'],
+      formattedCondition: consolidatedDevices['Devices_state_name'],
       minTemp: consolidatedDevices['min_temp'] as double,
       temp: consolidatedDevices['the_temp'] as double,
       maxTemp: consolidatedDevices['max_temp'] as double,

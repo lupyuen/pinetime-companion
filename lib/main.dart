@@ -17,9 +17,7 @@ import 'newtmgr.dart';
 
 void main() {
   final DevicesRepository devicesRepository = DevicesRepository(
-    devicesApiClient: DevicesApiClient(
-      httpClient: http.Client(),
-    ),
+    devicesApiClient: DevicesApiClient(),
   );
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
