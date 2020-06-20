@@ -10,44 +10,6 @@ class FindDevice extends StatefulWidget {
   State<FindDevice> createState() => FindDeviceScreen();
 }
 
-class _FindDeviceState extends State<FindDevice> {
-  final TextEditingController _textController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('City'),
-      ),
-      body: Form(
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: TextFormField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    labelText: 'City',
-                    hintText: 'Chicago',
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                //  TODO
-                Navigator.pop(context, _textController.text);
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /*
 class FlutterBlueApp extends StatelessWidget {
   @override
@@ -137,7 +99,7 @@ class FindDeviceScreen extends State<FindDevice> {
                                     onPressed: () => Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Devicecreen(device: d))),
+                                                DeviceScreen(device: d))),
                                     */
                                   );
                                 }
@@ -156,11 +118,15 @@ class FindDeviceScreen extends State<FindDevice> {
                       .map(
                         (r) => ScanResultTile(
                           result: r,
+                          //  When pressed, return the BluetoothDevice
+                          onTap: () => Navigator.pop(context, r.device),
+                          /*
                           onTap: () => Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
                             r.device.connect();
-                            return Devicecreen(device: r.device);
+                            return DeviceScreen(device: r.device);
                           })),
+                          */
                         ),
                       )
                       .toList(),
@@ -192,8 +158,8 @@ class FindDeviceScreen extends State<FindDevice> {
   }
 }
 
-class Devicecreen extends StatelessWidget {
-  const Devicecreen({Key key, this.device}) : super(key: key);
+class DeviceScreen extends StatelessWidget {
+  const DeviceScreen({Key key, this.device}) : super(key: key);
 
   final BluetoothDevice device;
 
