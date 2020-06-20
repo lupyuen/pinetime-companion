@@ -120,21 +120,25 @@ class FindDeviceScreen extends State<FindDevice> {
                 initialData: [],
                 builder: (c, snapshot) => Column(
                   children: snapshot.data
-                      .map((d) => ListTile(
-                            title: Text(d.name),
-                            subtitle: Text(d.id.toString()),
+                      .map((device) => ListTile(
+                            title: Text(device.name),
+                            subtitle: Text(device.id.toString()),
                             trailing: StreamBuilder<BluetoothDeviceState>(
-                              stream: d.state,
+                              stream: device.state,
                               initialData: BluetoothDeviceState.disconnected,
                               builder: (c, snapshot) {
                                 if (snapshot.data ==
                                     BluetoothDeviceState.connected) {
                                   return RaisedButton(
                                     child: Text('OPEN'),
+                                    //  When pressed, return the BluetoothDevice
+                                    onPressed: () => Navigator.pop(context, device),
+                                    /*
                                     onPressed: () => Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 Devicecreen(device: d))),
+                                    */
                                   );
                                 }
                                 return Text(snapshot.data.toString());

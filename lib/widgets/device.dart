@@ -39,16 +39,16 @@ class _DeviceState extends State<Device> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              final city = await Navigator.push(
+              final device = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  //  Browse Bluetooth LE devices
+                  //  TODO: Browse Bluetooth LE devices
                   builder: (context) => FindDevice(),
                 ),
               );
-              if (city != null) {
+              if (device != null) {
                 BlocProvider.of<DeviceBloc>(context)
-                    .add(DeviceRequested(city: city));
+                    .add(DeviceRequested(device: device));
               }
             },
           )
@@ -78,9 +78,12 @@ class _DeviceState extends State<Device> {
                     color: themeState.color,
                     child: RefreshIndicator(
                       onRefresh: () {
+                        print('*** device.onRefresh not implemented');
+                        /* TODO
                         BlocProvider.of<DeviceBloc>(context).add(
-                          DeviceRefreshRequested(city: device.location),
+                          DeviceRefreshRequested(device: device),
                         );
+                        */
                         return _refreshCompleter.future;
                       },
                       child: ListView(

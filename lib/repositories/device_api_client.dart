@@ -2,17 +2,14 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:meta/meta.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import '../models/models.dart';
 
 class DeviceApiClient {
-  Future<int> getLocationId(String city) async {
-    return 0;
-  }
-
-  Future<Device> fetchDevice(int locationId) async {
+  Future<Device> fetchDevice(BluetoothDevice btdevice) async {
     final device = Device(
       condition: DeviceCondition.clear,
-      formattedCondition: 'Ready for firmware update',
+      formattedCondition: btdevice.name, //// 'Ready for firmware update',
       minTemp: 0,
       temp: 1,
       maxTemp: 1,

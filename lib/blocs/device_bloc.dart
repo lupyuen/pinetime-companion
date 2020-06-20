@@ -1,5 +1,6 @@
 //  Business Logic for browsing Bluetooth LE device
 import 'dart:async';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -11,21 +12,21 @@ abstract class DeviceEvent extends Equatable {
 }
 
 class DeviceRequested extends DeviceEvent {
-  final String city;
+  final BluetoothDevice device;
 
-  const DeviceRequested({@required this.city}) : assert(city != null);
+  const DeviceRequested({@required this.device}) : assert(device != null);
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [device];
 }
 
 class DeviceRefreshRequested extends DeviceEvent {
-  final String city;
+  final BluetoothDevice device;
 
-  const DeviceRefreshRequested({@required this.city}) : assert(city != null);
+  const DeviceRefreshRequested({@required this.device}) : assert(device != null);
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [device];
 }
 
 abstract class DeviceState extends Equatable {
@@ -73,7 +74,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
   ) async* {
     yield DeviceLoadInProgress();
     try {
-      final Device device = await deviceRepository.getDevice(event.city);
+      final Device device = await deviceRepository.getDevice(event.device);
       yield DeviceLoadSuccess(device: device);
     } catch (_) {
       yield DeviceLoadFailure();
@@ -84,7 +85,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     DeviceRefreshRequested event,
   ) async* {
     try {
-      final Device device = await deviceRepository.getDevice(event.city);
+      final Device device = await deviceRepository.getDevice(event.device);
       yield DeviceLoadSuccess(device: device);
     } catch (_) {
       yield state;
