@@ -52,10 +52,31 @@ class DeviceApiClient {
     //  var descriptors = smpCharac.descriptors;
     //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
 
+    //  Create a completer to wait for response from PineTime
+    final completer = Completer<Device>();
+
     //  Handle responses from PineTime via Bluetooth LE Notifications
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
       print('Notify: ${ _dump(value) }\n');
+
+      //  Return the interim device state
+      final device = Device(
+        condition: DeviceCondition.clear,
+        formattedCondition: 'Update Firmware',
+        minTemp: 0,
+        temp: 1,
+        maxTemp: 1,
+        locationId: 0,
+        lastUpdated: DateTime.now(),
+        location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
+        bluetoothDevice: bluetoothDevice
+      );
+
+      //  Response is complete
+      if (!completer.isCompleted) {
+        completer.complete(device);
+      }
     });
 
     //  Compose the query firmware request (Simple Mgmt Protocol)
@@ -65,20 +86,7 @@ class DeviceApiClient {
     await smpCharac.write(request, withoutResponse: true);
 
     //  Response will be delivered via Bluetooth LE Notifications, handled above
-
-    //  Return the interim device state
-    final device = Device(
-      condition: DeviceCondition.clear,
-      formattedCondition: 'Update Firmware',
-      minTemp: 0,
-      temp: 1,
-      maxTemp: 1,
-      locationId: 0,
-      lastUpdated: DateTime.now(),
-      location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
-      bluetoothDevice: bluetoothDevice
-    );
-    return device;
+    return completer.future;  //  Wait for the completer to complete
   }
 }
 
