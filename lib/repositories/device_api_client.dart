@@ -94,10 +94,7 @@ class DeviceApiClient {
     body.addAll(response2.sublist(8));  //  Remove the 8-byte header
     final decodedBody = decodeCBOR(body);
     print('Decoded Response: $decodedBody\n');
-    final images = decodedBody[0]['images'];
-    final image = images[0];
-    final version = image['version'];
-    print('${ version }\n');
+    final images = decodedBody[0]['images'] as List<dynamic>;
 
     //  Return the device state
     final device = Device(
@@ -109,7 +106,9 @@ class DeviceApiClient {
       locationId: 0,
       lastUpdated: DateTime.now(),
       location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
-      bluetoothDevice: bluetoothDevice
+      bluetoothDevice: bluetoothDevice,
+      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
     );
     return device;
   }

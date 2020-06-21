@@ -27,6 +27,8 @@ class Device extends Equatable {
   final DateTime lastUpdated;
   final String location;
   final BluetoothDevice bluetoothDevice;
+  final String activeFirmwareVersion;
+  final String standbyFirmwareVersion;
 
   const Device({
     this.condition,
@@ -38,7 +40,9 @@ class Device extends Equatable {
     this.created,
     this.lastUpdated,
     this.location,
-    this.bluetoothDevice
+    this.bluetoothDevice,
+    this.activeFirmwareVersion,
+    this.standbyFirmwareVersion
   });
 
   @override
@@ -53,6 +57,8 @@ class Device extends Equatable {
         lastUpdated,
         location,
         bluetoothDevice,
+        activeFirmwareVersion,
+        standbyFirmwareVersion
       ];
 
   static Device fromJson(dynamic json) {

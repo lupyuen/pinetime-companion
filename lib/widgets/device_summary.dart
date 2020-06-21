@@ -30,11 +30,9 @@ class DeviceSummary extends StatelessWidget {
               padding: EdgeInsets.all(20.0),
               child: BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
-                  return Temperature(
-                    temperature: device.temp,
-                    high: device.maxTemp,
-                    low: device.minTemp,
-                    units: state.temperatureUnits,
+                  return DeviceFirmware(
+                    activeFirmwareVersion: device.activeFirmwareVersion,
+                    standbyFirmwareVersion: device.standbyFirmwareVersion,
                   );
                 },
               ),
