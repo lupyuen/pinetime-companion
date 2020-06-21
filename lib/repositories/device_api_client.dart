@@ -19,17 +19,17 @@ class DeviceApiClient {
     List<BluetoothService> services = await bluetoothDevice.discoverServices();
     for (BluetoothService service in services) {
       //  Look for Simple Mgmt Protocol Service
-      print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
-      if (listEquals(
+      //  print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
+      if (!listEquals(
         service.uuid.toByteArray(), 
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
 
       //  Look for Simple Mgmt Protocol Characteristic
       var characteristics = service.characteristics;
-      for(BluetoothCharacteristic charac in characteristics) {
-        print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
-        if (listEquals(
+      for (BluetoothCharacteristic charac in characteristics) {
+        //  print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
+        if (!listEquals(
           charac.uuid.toByteArray(),
           [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
         )) { continue; }
@@ -48,16 +48,14 @@ class DeviceApiClient {
       throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
     }
 
-    // Reads all descriptors
-    var descriptors = smpCharac.descriptors;
-    for(BluetoothDescriptor desc in descriptors) {
-        print('Desc: ${ desc.toString() }\n');
-    }
+    //  Read all descriptors
+    //  var descriptors = smpCharac.descriptors;
+    //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
 
     //  Handle responses from PineTime via Bluetooth LE Notifications
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
-      print('Notify: ${ value.toString() }\n');
+      print('Notify: ${ hexDump(value) }\n');
     });
 
     //  Compose the query firmware request (Simple Mgmt Protocol)
