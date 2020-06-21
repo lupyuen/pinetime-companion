@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:typed_data/typed_data.dart' as typed;  //  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
 import '../models/models.dart';
 import '../newtmgr.dart';
 
@@ -54,15 +55,23 @@ class DeviceApiClient {
 
     //  Create a completer to wait for response from PineTime
     final completer = Completer();
+    final response = typed.Uint8Buffer();
 
     //  Handle responses from PineTime via Bluetooth LE Notifications    
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
       //  Response bytes are passed to this callback function, chunk by chunk
       print('Notify: ${ _dump(value) }\n');
+      response.addAll(value);
 
-      //  TODO: If this is the last chunk of response, mark response as complete
-      if (!completer.isCompleted) {
+      //  Get the expected message length
+      if (response.length < 4) { return; }           //  Length field not available
+      final len = (response[2] << 8) + response[3];  //  Length field in bytes 2 and 3
+      final responseLength = len + 8;  //  Response includes 8 bytes for header
+
+      //  If the received response length is already the expected response length, mark response as complete
+      if (response.length >= responseLength && !completer.isCompleted) {
+        print('Response Length: ${ response.length } vs $responseLength\n');
         completer.complete();
       }
     });
@@ -75,6 +84,9 @@ class DeviceApiClient {
 
     //  Response will be delivered via Bluetooth LE Notifications, handled above
     await completer.future;  //  Wait for the completer to complete
+
+    //  Disconnect the device
+    bluetoothDevice.disconnect();
 
     //  Return the device state
     final device = Device(
