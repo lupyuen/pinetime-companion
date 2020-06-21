@@ -94,46 +94,76 @@ String _dump(dynamic buf) {
 /* Log:
 Launching lib/main.dart on Pixel 4 XL in debug mode...
 ✓ Built build/app/outputs/apk/debug/app-debug.apk.
-I/FlutterBluePlugin( 3854): setup
-Connecting to VM Service at ws://127.0.0.1:49500/k9L4zT09Kp4=/ws
-D/BluetoothAdapter( 3854): isLeEnabled(): ON
-D/BluetoothLeScanner( 3854): onScannerRegistered() - status=0 scannerId=7 mScannerId=0
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->arrayBaseOffset(Ljava/lang/Class;)I (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->copyMemory(JJJ)V (greylist, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->objectFieldOffset(Ljava/lang/reflect/Field;)J (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getByte(J)B (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getByte(Ljava/lang/Object;J)B (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getLong(J)J (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->putByte(JB)V (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->putByte(Ljava/lang/Object;JB)V (greylist,core-platform-api, linking, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
-W/er_blue_exampl( 3854): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
-W/er_blue_exampl( 3854): Accessing hidden field Ljava/nio/Buffer;->address:J (greylist, reflection, allowed)
-D/FlutterBluePlugin( 3854): mDevices size: 0
-I/flutter ( 3854): onEvent DeviceRequested
-I/flutter ( 3854): Fetching device...
-I/flutter ( 3854): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
-D/BluetoothGatt( 3854): connect() - device: E8:C1:1A:12:BA:89, auto: true
-D/BluetoothGatt( 3854): registerApp()
-D/BluetoothGatt( 3854): registerApp() - UUID=320d32a1-00db-4914-968c-72e235aac8d0
-D/BluetoothGatt( 3854): onClientRegistered() - status=0 clientIf=8
-D/BluetoothGatt( 3854): onClientConnectionState() - status=0 clientIf=8 device=E8:C1:1A:12:BA:89
-D/FlutterBluePlugin( 3854): [onConnectionStateChange] status: 0 newState: 2
-I/flutter ( 3854): Device: BluetoothDevice{id: E8:C1:1A:12:BA:89, name: pinetime, type: BluetoothDeviceType.le, isDiscoveringServices: false, _services: []
-D/BluetoothGatt( 3854): discoverServices() - device: E8:C1:1A:12:BA:89
-D/BluetoothGatt( 3854): onConnectionUpdated() - Device=E8:C1:1A:12:BA:89 interval=6 latency=0 timeout=500 status=0
-D/BluetoothGatt( 3854): onSearchComplete() = Device=E8:C1:1A:12:BA:89 Status=0
-D/FlutterBluePlugin( 3854): [onServicesDiscovered] count: 6 status: 0
-I/flutter ( 3854): Service: BluetoothService{uuid: 00001800-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: 00002a00-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001800-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [], value: [], BluetoothCharacteristic{uuid: 00002a01-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001800-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, i
-I/flutter ( 3854): Service: BluetoothService{uuid: 00001801-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: 00002a05-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001801-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: false, writeWithoutResponse: false, write: false, notify: false, indicate: true, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [BluetoothDescriptor{uuid: 00002902-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001801-0000-1000-8000-00805f9b34fb, characteristicUuid: 00002a05-0000-1000-8000-00805f9b34fb, value: []}], value: []], includedServices: []}
-I/flutter ( 3854): Service: BluetoothService{uuid: 00001811-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: 00002a47-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001811-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [], value: [], BluetoothCharacteristic{uuid: 00002a46-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 00001811-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: false, writeWithoutResponse: false, write: false, notify: true, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, i
-I/flutter ( 3854): Service: BluetoothService{uuid: 0000180a-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: 00002a24-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 0000180a-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [], value: [], BluetoothCharacteristic{uuid: 00002a26-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 0000180a-0000-1000-8000-00805f9b34fb, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: true, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, in
-I/flutter ( 3854): Service: BluetoothService{uuid: 8d53dc1d-1db7-4cd3-868b-8a527460aa84, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: da2e7828-fbce-4e01-ae9e-261174997c48, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 8d53dc1d-1db7-4cd3-868b-8a527460aa84, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: false, writeWithoutResponse: true, write: false, notify: true, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [BluetoothDescriptor{uuid: 00002902-0000-1000-8000-00805f9b34fb, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 8d53dc1d-1db7-4cd3-868b-8a527460aa84, characteristicUuid: da2e7828-fbce-4e01-ae9e-261174997c48, value: []}], value: []], includedServices: []}
-I/flutter ( 3854): Service: BluetoothService{uuid: 59462f12-9543-9999-12c8-58b459a2712d, deviceId: E8:C1:1A:12:BA:89, isPrimary: true, characteristics: [BluetoothCharacteristic{uuid: 5c3a659e-897e-45e1-b016-007107c96df6, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 59462f12-9543-9999-12c8-58b459a2712d, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: false, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, indicateEncryptionRequired: false}, descriptors: [], value: [], BluetoothCharacteristic{uuid: 5c3a659e-897e-45e1-b016-007107c96df7, deviceId: E8:C1:1A:12:BA:89, serviceUuid: 59462f12-9543-9999-12c8-58b459a2712d, secondaryServiceUuid: null, properties: CharacteristicProperties{broadcast: false, read: true, writeWithoutResponse: false, write: true, notify: false, indicate: false, authenticatedSignedWrites: false, extendedProperties: false, notifyEncryptionRequired: false, in
-I/flutter ( 3854): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
-I/flutter ( 3854): onEvent DeviceChanged
-I/flutter ( 3854): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
-D/BluetoothGatt( 3854): onConnectionUpdated() - Device=E8:C1:1A:12:BA:89 interval=36 latency=0 timeout=500 status=0
-D/BluetoothAdapter( 3854): isLeEnabled(): ON
+I/FlutterBluePlugin(20746): setup
+Connecting to VM Service at ws://127.0.0.1:56834/J0WhhxjM9qI=/ws
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->arrayBaseOffset(Ljava/lang/Class;)I (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->copyMemory(JJJ)V (greylist, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->objectFieldOffset(Ljava/lang/reflect/Field;)J (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getByte(J)B (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getByte(Ljava/lang/Object;J)B (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getLong(J)J (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->putByte(JB)V (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->putByte(Ljava/lang/Object;JB)V (greylist,core-platform-api, linking, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+W/er_blue_exampl(20746): Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+W/er_blue_exampl(20746): Accessing hidden field Ljava/nio/Buffer;->address:J (greylist, reflection, allowed)
+D/FlutterBluePlugin(20746): mDevices size: 0
+D/BluetoothAdapter(20746): isLeEnabled(): ON
+D/BluetoothLeScanner(20746): onScannerRegistered() - status=0 scannerId=7 mScannerId=0
+I/flutter (20746): onEvent DeviceRequested
+I/flutter (20746): Fetching device...
+I/flutter (20746): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
+D/BluetoothGatt(20746): connect() - device: E8:C1:1A:12:BA:89, auto: true
+D/BluetoothGatt(20746): registerApp()
+D/BluetoothGatt(20746): registerApp() - UUID=4de1fee2-4a06-4595-a5cf-40533eb5db77
+D/BluetoothGatt(20746): onClientRegistered() - status=0 clientIf=8
+D/BluetoothGatt(20746): onClientConnectionState() - status=0 clientIf=8 device=E8:C1:1A:12:BA:89
+D/FlutterBluePlugin(20746): [onConnectionStateChange] status: 0 newState: 2
+I/flutter (20746): Device: BluetoothDevice{id: E8:C1:1A:12:BA:89, name: pinetime, type: BluetoothDeviceType.le, isDiscoveringServices: false, _services: []
+D/BluetoothGatt(20746): discoverServices() - device: E8:C1:1A:12:BA:89
+D/BluetoothGatt(20746): onConnectionUpdated() - Device=E8:C1:1A:12:BA:89 interval=6 latency=0 timeout=500 status=0
+D/BluetoothGatt(20746): onSearchComplete() = Device=E8:C1:1A:12:BA:89 Status=0
+D/FlutterBluePlugin(20746): [onServicesDiscovered] count: 6 status: 0
+D/BluetoothGatt(20746): setCharacteristicNotification() - uuid: da2e7828-fbce-4e01-ae9e-261174997c48 enable: true
+D/FlutterBluePlugin(20746): [onDescriptorWrite] uuid: 00002902-0000-1000-8000-00805f9b34fb status: 0
+I/flutter (20746): Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:46 Id:0}}} {} to:
+I/flutter (20746): a0
+I/flutter (20746): Encoded:
+I/flutter (20746): 00 00 00 01 00 01 2e 00 a0
+I/flutter (20746): Notify:
+D/FlutterBluePlugin(20746): [onCharacteristicWrite] uuid: da2e7828-fbce-4e01-ae9e-261174997c48 status: 0
+I/flutter (20746): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
+I/flutter (20746): onEvent DeviceChanged
+I/flutter (20746): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
+D/BluetoothGatt(20746): onConnectionUpdated() - Device=E8:C1:1A:12:BA:89 interval=36 latency=0 timeout=500 status=0
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+I/flutter (20746): Notify: 01 00 00 f4 00 01 2e 00 bf 66 69 6d 61 67 65 73 9f bf 64 73
+I/flutter (20746): Notify: 6c 6f 74 00 67 76 65 72 73 69 6f 6e 65 31 2e 30 2e 30 64 68
+I/flutter (20746): Notify: 61 73 68 58 20 ea bc 3a ce 74 a8 28 4c 6f 78 c2 bc ad 3a e1
+I/flutter (20746): Notify: 8d 39 26 75 c7 66 c5 1f 95 23 0f 13 39 3f 08 1c 5d 68 62 6f
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+I/flutter (20746): Notify: 6f 74 61 62 6c 65 f5 67 70 65 6e 64 69 6e 67 f4 69 63 6f 6e
+I/flutter (20746): Notify: 66 69 72 6d 65 64 f5 66 61 63 74 69 76 65 f5 69 70 65 72 6d
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+I/chatty  (20746): uid=10302(com.pauldemarco.flutter_blue_example) Binder:20746_3 identical 1 line
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+I/flutter (20746): Notify: 61 6e 65 6e 74 f4 ff bf 64 73 6c 6f 74 01 67 76 65 72 73 69
+I/flutter (20746): Notify: 6f 6e 65 31 2e 31 2e 30 64 68 61 73 68 58 20 0d 78 49 f7 fe
+I/flutter (20746): Notify: 43 92 7a 87 d7 b4 d5 54 f8 43 08 82 33 d8 02 d5 09 0c 20 da
+I/flutter (20746): Notify: a1 e6 a7 77 72 99 6e 68 62 6f 6f 74 61 62 6c 65 f5 67 70 65
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+D/FlutterBluePlugin(20746): [onCharacteristicChanged] uuid: da2e7828-fbce-4e01-ae9e-261174997c48
+I/flutter (20746): Notify: 6e 64 69 6e 67 f4 69 63 6f 6e 66 69 72 6d 65 64 f4 66 61 63
+I/flutter (20746): Notify: 74 69 76 65 f4 69 70 65 72 6d 61 6e 65 6e 74 f4 ff ff 6b 73
+I/flutter (20746): Notify: 70 6c 69 74 53 74 61 74 75 73 00 ff
+D/BluetoothAdapter(20746): isLeEnabled(): ON
+Application finished.
+Exited (sigterm)
 */
