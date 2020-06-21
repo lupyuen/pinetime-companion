@@ -94,6 +94,10 @@ class DeviceApiClient {
     body.addAll(response2.sublist(8));  //  Remove the 8-byte header
     final decodedBody = decodeCBOR(body);
     print('Decoded Response: $decodedBody\n');
+    final images = decodedBody[0]['images'];
+    final image = images[0];
+    final version = image['version'];
+    print('${ version }\n');
 
     //  Return the device state
     final device = Device(
