@@ -95,7 +95,7 @@ class _DeviceState extends State<Device> {
                             ),
                           ),
                           Center(
-                            child: LastUpdated(dateTime: device.lastUpdated),
+                            child: LastUpdated(device: device),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),

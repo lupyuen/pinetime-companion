@@ -3,64 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import '../widgets.dart';
-import '../newtmgr.dart';
 
 class FindDevice extends StatefulWidget {
   @override
   State<FindDevice> createState() => FindDeviceScreen();
-}
-
-/*
-class FlutterBlueApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      color: Colors.lightBlue,
-      home: StreamBuilder<BluetoothState>(
-          stream: FlutterBlue.instance.state,
-          initialData: BluetoothState.unknown,
-          builder: (c, snapshot) {
-            final state = snapshot.data;
-            if (state == BluetoothState.on) {
-              return FindDeviceScreen();
-            }
-            return BluetoothOffScreen(state: state);
-          }),
-    );
-  }
-}
-*/
-
-class BluetoothOffScreen extends StatelessWidget {
-  const BluetoothOffScreen({Key key, this.state}) : super(key: key);
-
-  final BluetoothState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.lightBlue,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              Icons.bluetooth_disabled,
-              size: 200.0,
-              color: Colors.white54,
-            ),
-            Text(
-              'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .subhead
-                  .copyWith(color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class FindDeviceScreen extends State<FindDevice> {
@@ -158,6 +104,39 @@ class FindDeviceScreen extends State<FindDevice> {
   }
 }
 
+class BluetoothOffScreen extends StatelessWidget {
+  const BluetoothOffScreen({Key key, this.state}) : super(key: key);
+
+  final BluetoothState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.lightBlue,
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              Icons.bluetooth_disabled,
+              size: 200.0,
+              color: Colors.white54,
+            ),
+            Text(
+              'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .subhead
+                  .copyWith(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
 class DeviceScreen extends StatelessWidget {
   const DeviceScreen({Key key, this.device}) : super(key: key);
 
@@ -307,3 +286,23 @@ class DeviceScreen extends StatelessWidget {
     );
   }
 }
+
+class FlutterBlueApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      color: Colors.lightBlue,
+      home: StreamBuilder<BluetoothState>(
+          stream: FlutterBlue.instance.state,
+          initialData: BluetoothState.unknown,
+          builder: (c, snapshot) {
+            final state = snapshot.data;
+            if (state == BluetoothState.on) {
+              return FindDeviceScreen();
+            }
+            return BluetoothOffScreen(state: state);
+          }),
+    );
+  }
+}
+*/

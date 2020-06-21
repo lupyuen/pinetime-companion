@@ -89,9 +89,11 @@ class _WeatherState extends State<Weather> {
                               child: Location(location: weather.location),
                             ),
                           ),
+                          /*
                           Center(
                             child: LastUpdated(dateTime: weather.lastUpdated),
                           ),
+                          */
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 50.0),
                             child: Center(

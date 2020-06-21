@@ -2,31 +2,69 @@
 import 'dart:async';
 import 'package:flutter_blue/flutter_blue.dart';
 import '../models/models.dart';
+import '../newtmgr.dart';
 
 class DeviceApiClient {
-  /// Connect to the Bluetooth LE device and list the services
+  /// Connect to the PineTime device and query the firmare inside
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
     print('Fetching device...\n');
 
-    //  Connect to the device
+    //  Connect to PineTime
     await bluetoothDevice.connect();
     print('Device: ${bluetoothDevice.toString()}\n');
+    var smpCharac;
 
-    //  Discover the services
+    //  Discover the services on PineTime
     List<BluetoothService> services = await bluetoothDevice.discoverServices();
-    services.forEach((service) {
+    for (BluetoothService service in services) {
       print('Service: ${service.toString()}\n');
+
+      //  Look for Simple Mgmt Protocol Service
+      if (service.uuid.toByteArray() != []) { continue; }
+
+      //  Look for Simple Mgmt Protocol Characteristic
+      var characteristics = service.characteristics;
+      for(BluetoothCharacteristic charac in characteristics) {
+        if (charac.uuid.toByteArray() != []) { continue; }
+
+        //  Found the characteristic
+        smpCharac = charac;
+        break;
+      }
+
+      //  Found the characteristic
+      if (smpCharac != null) { break; }
+    }
+
+    //  If Simple Mgmt Protocol not supported...
+    if (smpCharac == null) {
+      throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
+    }
+
+    //  Handle responses from PineTime via Bluetooth LE Notifications
+    await smpCharac.setNotifyValue(true);
+    smpCharac.value.listen((value) {
+      print('Notify: ${value.toString()}\n');
     });
 
+    //  Compose the query firmware request (Simple Mgmt Protocol)
+    final request = composeRequest();
+
+    //  Transmit the query firmware request by writing to the SMP charactertistic
+    await smpCharac.write(request, withoutResponse: true);
+
+    //  Response will be delivered via Bluetooth LE Notifications, handled above
+
+    //  Return the interim device state
     final device = Device(
       condition: DeviceCondition.clear,
-      formattedCondition: bluetoothDevice.name, //// 'Ready for firmware update',
+      formattedCondition: 'Update Firmware',
       minTemp: 0,
       temp: 1,
       maxTemp: 1,
       locationId: 0,
       lastUpdated: DateTime.now(),
-      location: 'location',
+      location: '${bluetoothDevice.name} ${bluetoothDevice.id.toString()}',
       bluetoothDevice: bluetoothDevice
     );
     return device;
