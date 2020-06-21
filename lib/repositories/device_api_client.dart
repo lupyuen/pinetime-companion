@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:cbor/cbor.dart' as cbor;               //  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
 import 'package:typed_data/typed_data.dart' as typed;  //  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
 import '../models/models.dart';
 import '../newtmgr.dart';
@@ -54,7 +55,7 @@ class DeviceApiClient {
     //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
 
     //  Create a completer to wait for response from PineTime
-    final completer = Completer();
+    final completer = Completer<typed.Uint8Buffer>();
     final response = typed.Uint8Buffer();
 
     //  Handle responses from PineTime via Bluetooth LE Notifications    
@@ -72,7 +73,7 @@ class DeviceApiClient {
       //  If the received response length is already the expected response length, mark response as complete
       if (response.length >= responseLength && !completer.isCompleted) {
         print('Response Length: ${ response.length } vs $responseLength\n');
-        completer.complete();
+        completer.complete(response);
       }
     });
 
@@ -83,10 +84,16 @@ class DeviceApiClient {
     await smpCharac.write(request, withoutResponse: true);
 
     //  Response will be delivered via Bluetooth LE Notifications, handled above
-    await completer.future;  //  Wait for the completer to complete
+    final response2 = await completer.future;  //  Wait for the completer to complete
 
     //  Disconnect the device
     bluetoothDevice.disconnect();
+
+    //  Extract CBOR message body and decode it
+    final body = typed.Uint8Buffer();
+    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+    final decodedBody = decodeCBOR(body);
+    print('Decoded Response: $decodedBody\n');
 
     //  Return the device state
     final device = Device(
@@ -102,6 +109,18 @@ class DeviceApiClient {
     );
     return device;
   }
+}
+
+/// Decode the CBOR message body
+List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
+  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  // Decode from the buffer
+  inst.decodeFromBuffer(payload);
+  print('Decoded CBOR:\n${ inst.decodedPrettyPrint() }');
+  print('${ inst.decodedToJSON() }\n');
+  return inst.getDecodedData();
 }
 
 /// Return the buffer buf dumped as hex numbers
