@@ -55,7 +55,7 @@ class DeviceApiClient {
     //  Handle responses from PineTime via Bluetooth LE Notifications
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
-      print('Notify: ${ hexDump(value) }\n');
+      print('Notify: ${ _dump(value) }\n');
     });
 
     //  Compose the query firmware request (Simple Mgmt Protocol)
@@ -80,6 +80,15 @@ class DeviceApiClient {
     );
     return device;
   }
+}
+
+/// Return the buffer buf dumped as hex numbers
+String _dump(dynamic buf) {
+  return buf.map(
+    (b) {
+      return b.toRadixString(16).padLeft(2, "0");
+    }
+  ).join(" ");
 }
 
 /* Log:
