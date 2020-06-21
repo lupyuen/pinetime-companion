@@ -11,40 +11,42 @@ class DeviceApiClient {
 
     //  Connect to PineTime
     await bluetoothDevice.connect();
-    print('Device: ${bluetoothDevice.toString()}\n');
+    print('Device: ${ bluetoothDevice.toString() }\n');
     var smpCharac;
 
     //  Discover the services on PineTime
     List<BluetoothService> services = await bluetoothDevice.discoverServices();
     for (BluetoothService service in services) {
-      print('Service: ${service.toString()}\n');
-
+      print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
       //  Look for Simple Mgmt Protocol Service
-      if (service.uuid.toByteArray() != []) { continue; }
-
+      if (service.uuid.toByteArray() != [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]) { 
+        continue; 
+      }
       //  Look for Simple Mgmt Protocol Characteristic
       var characteristics = service.characteristics;
       for(BluetoothCharacteristic charac in characteristics) {
-        if (charac.uuid.toByteArray() != []) { continue; }
-
+        print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
+        if (charac.uuid.toByteArray() != [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]) { 
+          continue;
+        }
         //  Found the characteristic
         smpCharac = charac;
         break;
       }
-
       //  Found the characteristic
       if (smpCharac != null) { break; }
     }
 
-    //  If Simple Mgmt Protocol not supported...
+    //  If Simple Mgmt Protocol Service or Characteristic not found...
     if (smpCharac == null) {
+      bluetoothDevice.disconnect();
       throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
     }
 
     //  Handle responses from PineTime via Bluetooth LE Notifications
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
-      print('Notify: ${value.toString()}\n');
+      print('Notify: ${ value.toString() }\n');
     });
 
     //  Compose the query firmware request (Simple Mgmt Protocol)
@@ -64,7 +66,7 @@ class DeviceApiClient {
       maxTemp: 1,
       locationId: 0,
       lastUpdated: DateTime.now(),
-      location: '${bluetoothDevice.name} ${bluetoothDevice.id.toString()}',
+      location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
       bluetoothDevice: bluetoothDevice
     );
     return device;
