@@ -58,9 +58,10 @@ class DeviceApiClient {
     //  Handle responses from PineTime via Bluetooth LE Notifications    
     await smpCharac.setNotifyValue(true);
     smpCharac.value.listen((value) {
+      //  Response bytes are passed to this callback function, chunk by chunk
       print('Notify: ${ _dump(value) }\n');
 
-      //  Response is complete
+      //  TODO: If this is the last chunk of response, mark response as complete
       if (!completer.isCompleted) {
         completer.complete();
       }
@@ -87,11 +88,7 @@ class DeviceApiClient {
       location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
       bluetoothDevice: bluetoothDevice
     );
-
     return device;
-
-    //  Response will be delivered via Bluetooth LE Notifications, handled above
-    //  return completer.future;  //  Wait for the completer to complete
   }
 }
 
