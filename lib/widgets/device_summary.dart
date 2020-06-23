@@ -28,6 +28,7 @@ class DeviceSummary extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.all(20.0),
+              //  TODO: Remove BlocBuilder
               child: BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
                   return DeviceFirmware(
