@@ -42,7 +42,7 @@ class _DeviceState extends State<Device> {
               final device = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  //  TODO: Browse Bluetooth LE devices
+                  //  Browse Bluetooth LE devices
                   builder: (context) => FindDevice(),
                 ),
               );
