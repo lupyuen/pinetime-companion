@@ -1,6 +1,5 @@
 //  Widget to display firmware versions in a device
 import 'package:flutter/material.dart';
-import '../blocs/blocs.dart';
 
 class DeviceFirmware extends StatelessWidget {
   final String activeFirmwareVersion;
