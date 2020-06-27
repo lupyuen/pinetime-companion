@@ -1,6 +1,4 @@
-# pinetime-companion
-
-Flutter Companion App for PineTime Smart Watch (Android and iOS)
+# Flutter Companion App for PineTime Smart Watch (Android and iOS)
 
 This `companion` branch contains a simple `flutter_blue` app that sends a simple Bluetooth LE command to PineTime.
 
