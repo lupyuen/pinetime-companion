@@ -1,6 +1,6 @@
 # Flutter Companion App for PineTime Smart Watch (Android and iOS)
 
-This `bloc` branch uses [Bloc State Management](https://bloclibrary.dev/#/) to retrieve and display firmware versions from PineTime.
+This `master` branch uses [Bloc State Management](https://bloclibrary.dev/#/) to retrieve and display firmware versions from PineTime.
 
 Refer to the articles...
 
