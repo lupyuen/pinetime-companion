@@ -23,7 +23,8 @@ class DeviceRequested extends DeviceEvent {
 class DeviceRefreshRequested extends DeviceEvent {
   final BluetoothDevice device;
 
-  const DeviceRefreshRequested({@required this.device}) : assert(device != null);
+  const DeviceRefreshRequested({@required this.device})
+      : assert(device != null);
 
   @override
   List<Object> get props => [device];

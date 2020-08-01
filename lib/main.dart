@@ -21,15 +21,11 @@ void main() {
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(),
         ),
-
         BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(),
         ),
       ],
-
-      child: App(
-        deviceRepository: deviceRepository
-      ),
+      child: App(deviceRepository: deviceRepository),
     ),
   );
 }
@@ -48,7 +44,6 @@ class App extends StatelessWidget {
         return MaterialApp(
           title: 'PineTime Companion',
           theme: themeState.theme,
-
           home: BlocProvider(
             create: (context) => DeviceBloc(
               deviceRepository: deviceRepository,
@@ -57,7 +52,6 @@ class App extends StatelessWidget {
             //  App starts with the Device widget
             child: Device(),
           ),
-
         );
       },
     );

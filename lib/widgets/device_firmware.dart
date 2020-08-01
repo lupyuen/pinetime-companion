@@ -5,11 +5,9 @@ class DeviceFirmware extends StatelessWidget {
   final String activeFirmwareVersion;
   final String standbyFirmwareVersion;
 
-  DeviceFirmware({
-    Key key,
-    this.activeFirmwareVersion,
-    this.standbyFirmwareVersion
-  }) : super(key: key);
+  DeviceFirmware(
+      {Key key, this.activeFirmwareVersion, this.standbyFirmwareVersion})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
