@@ -252,7 +252,7 @@ class ImageStateReadCmd with CmdBase implements Cmd {
       ) {
     final r = newImageStateReadReq(); //  Previously nmp.NewImageStateReadReq()
 
-    //final rsp = 
+    //final rsp =
     txReq(s, r.msg(), this.base);
     //  TODO: final srsp = rsp.ImageStateRsp;  //  Previously nmp.ImageStateRsp
 
@@ -504,7 +504,7 @@ NmpRsp txReq(
 
   //  TODO: final rsp = sesn.TxRxMgmt(s, m, c.TxOptions());
   final rsp = ImageStateRsp();
-  //final data = 
+  //final data =
   encodeNmpPlain(m);
 
   if (c != null) {
@@ -651,7 +651,7 @@ void testCommand() {
   //  c.SetTxOptions(nmutil.TxOptions());
 
   //  Transmit the SMP Command
-  //final res = 
+  //final res =
   c.run(s);
 
   //  TODO: Handle SMP Response
