@@ -1,4 +1,4 @@
-/**
+/* 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,39 +30,39 @@ const NMP_HDR_SIZE = 8;
 
 /// SMP Header
 class NmpHdr {
-  int Op; //  uint8: 3 bits of opcode
-  int Flags; //  uint8
-  int Len; //  uint16
-  int Group; //  uint16
-  int Seq; //  uint8
-  int Id; //  uint8
+  int op; //  uint8: 3 bits of opcode
+  int flags; //  uint8
+  int len; //  uint16
+  int group; //  uint16
+  int seq; //  uint8
+  int id; //  uint8
 
   /// Construct an SMP Header
   NmpHdr(
-      this.Op, //  uint8: 3 bits of opcode
-      this.Flags, //  uint8
-      this.Len, //  uint16
-      this.Group, //  uint16
-      this.Seq, //  uint8
-      this.Id //  uint8
+      this.op, //  uint8: 3 bits of opcode
+      this.flags, //  uint8
+      this.len, //  uint16
+      this.group, //  uint16
+      this.seq, //  uint8
+      this.id //  uint8
       );
 
   /// Return this SMP Header as a list of bytes
-  typed.Uint8Buffer Bytes() {
+  typed.Uint8Buffer bytes() {
     //  Returns []byte
     var buf = typed.Uint8Buffer(); //  make([]byte, 0, NMP_HDR_SIZE);
 
-    buf.add(this.Op);
-    buf.add(this.Flags);
+    buf.add(this.op);
+    buf.add(this.flags);
 
-    typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.Len);
+    typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.len);
     buf.addAll(u16b);
 
-    u16b = binaryBigEndianPutUint16(this.Group);
+    u16b = binaryBigEndianPutUint16(this.group);
     buf.addAll(u16b);
 
-    buf.add(this.Seq);
-    buf.add(this.Id);
+    buf.add(this.seq);
+    buf.add(this.id);
     assert(buf.length == NMP_HDR_SIZE);
 
     return buf;
@@ -71,52 +71,52 @@ class NmpHdr {
 
 /// SMP Message
 class NmpMsg {
-  NmpHdr Hdr;
-  NmpReq Body; //  Previously interface{}
+  NmpHdr hdr;
+  NmpReq body; //  Previously interface{}
 
   /// Construct an SMP Message
-  NmpMsg(this.Hdr, this.Body);
+  NmpMsg(this.hdr, this.body);
 }
 
 /// SMP Request Message
 abstract class NmpReq {
-  NmpHdr Hdr();
-  void SetHdr(NmpHdr hdr);
+  NmpHdr hdr();
+  void setHdr(NmpHdr hdr);
 
-  NmpMsg Msg();
-  void Encode(cbor.MapBuilder builder);
+  NmpMsg msg();
+  void encode(cbor.MapBuilder builder);
 }
 
 /// SMP Response Message
 abstract class NmpRsp {
-  NmpHdr Hdr();
-  void SetHdr(NmpHdr msg);
+  NmpHdr hdr();
+  void setHdr(NmpHdr msg);
 
-  NmpMsg Msg();
+  NmpMsg msg();
 }
 
 /// SMP Base Message
 mixin NmpBase {
-  NmpHdr hdr; //  Will not be encoded: `codec:"-"`
+  NmpHdr _hdr; //  Will not be encoded: `codec:"-"`
 
-  NmpHdr Hdr() {
-    return hdr;
+  NmpHdr hdr() {
+    return _hdr;
   }
 
-  void SetHdr(NmpHdr h) {
-    hdr = h;
+  void setHdr(NmpHdr h) {
+    _hdr = h;
   }
 }
 
-NmpMsg MsgFromReq(NmpReq r) {
-  return NmpMsg(r.Hdr(), r);
+NmpMsg msgFromReq(NmpReq r) {
+  return NmpMsg(r.hdr(), r);
 }
 
-NmpMsg NewNmpMsg() {
+NmpMsg newNmpMsg() {
   return NmpMsg(NmpHdr(0, 0, 0, 0, 0, 0), null);
 }
 
-NmpHdr DecodeNmpHdr(typed.Uint8Buffer data /* []byte */) {
+NmpHdr decodeNmpHdr(typed.Uint8Buffer data /* []byte */) {
   if (data.length < NMP_HDR_SIZE) {
     throw Exception("Newtmgr request buffer too small ${data.length} bytes");
   }
@@ -134,7 +134,7 @@ NmpHdr DecodeNmpHdr(typed.Uint8Buffer data /* []byte */) {
 }
 
 /// Encode SMP Request Body with CBOR and return the byte array
-typed.Uint8Buffer BodyBytes(
+typed.Uint8Buffer bodyBytes(
     //  Returns []byte
     NmpReq body //  Previously interface{}
     ) {
@@ -146,7 +146,7 @@ typed.Uint8Buffer BodyBytes(
   final mapBuilder = cbor.MapBuilder.builder();
 
   //  Encode the body as a CBOR map
-  body.Encode(mapBuilder);
+  body.encode(mapBuilder);
   final mapData = mapBuilder.getData();
   encoder.addBuilderOutput(mapData);
 
@@ -155,27 +155,27 @@ typed.Uint8Buffer BodyBytes(
 
   //  Decode the encoded body and pretty print it
   inst.decodeFromInput(); //  print(inst.decodedPrettyPrint(false));
-  final hdr = body.Hdr();
+  final hdr = body.hdr();
   print("Encoded {NmpBase:{hdr:{"
-      "Op:${hdr.Op} "
-      "Flags:${hdr.Flags} "
-      "Len:${hdr.Len} "
-      "Group:${hdr.Group} "
-      "Seq:${hdr.Seq} "
-      "Id:${hdr.Id}}}} "
+      "Op:${hdr.op} "
+      "Flags:${hdr.flags} "
+      "Len:${hdr.len} "
+      "Group:${hdr.group} "
+      "Seq:${hdr.seq} "
+      "Id:${hdr.id}}}} "
       "${inst.decodedToJSON()} "
       "to:\n${hexDump(data)}");
   return data;
 }
 
 /// Encode the SMP Message with CBOR and return the byte array
-typed.Uint8Buffer EncodeNmpPlain(NmpMsg nmr) {
+typed.Uint8Buffer encodeNmpPlain(NmpMsg nmr) {
   //  Returns []byte
-  final bb = BodyBytes(nmr.Body);
+  final bb = bodyBytes(nmr.body);
 
-  nmr.Hdr.Len = bb.length; //  uint16
+  nmr.hdr.len = bb.length; //  uint16
 
-  final hb = nmr.Hdr.Bytes();
+  final hb = nmr.hdr.bytes();
   var data = typed.Uint8Buffer();
   data.addAll(hb);
   data.addAll(bb);
@@ -201,7 +201,7 @@ void fillNmpReqWithSeq(
       id //  Id
       );
 
-  req.SetHdr(hdr);
+  req.setHdr(hdr);
 }
 
 /// Init the SMP Request and set the next sequence number
@@ -211,7 +211,7 @@ void fillNmpReq(
     int group, //  uint16
     int id //  uint8
     ) {
-  fillNmpReqWithSeq(req, op, group, id, NextNmpSeq() //  From nmxutil
+  fillNmpReqWithSeq(req, op, group, id, nextNmpSeq() //  From nmxutil
       );
 }
 
@@ -248,12 +248,12 @@ class ImageStateReadCmd with CmdBase implements Cmd {
 
   //  TODO: ImageStateReadCmd(this.base);
 
-  Result Run(Sesn s //  Previously sesn.Sesn
+  Result run(Sesn s //  Previously sesn.Sesn
       ) {
-    final r = NewImageStateReadReq(); //  Previously nmp.NewImageStateReadReq()
+    final r = newImageStateReadReq(); //  Previously nmp.NewImageStateReadReq()
 
-    final rsp = txReq(s, r.Msg(), this.base);
-
+    //final rsp = 
+    txReq(s, r.msg(), this.base);
     //  TODO: final srsp = rsp.ImageStateRsp;  //  Previously nmp.ImageStateRsp
 
     var res = newImageStateReadResult();
@@ -263,14 +263,14 @@ class ImageStateReadCmd with CmdBase implements Cmd {
 }
 
 class ImageStateReadResult implements Result {
-  ImageStateRsp Rsp; //  Previously nmp.ImageStateRsp
+  ImageStateRsp rsp; //  Previously nmp.ImageStateRsp
 
-  int Status() {
-    return this.Rsp.Rc;
+  int status() {
+    return this.rsp.rc;
   }
 }
 
-ImageStateReadCmd NewImageStateReadCmd() {
+ImageStateReadCmd newImageStateReadCmd() {
   return ImageStateReadCmd(
       //  TODO: NewCmdBase()
       );
@@ -334,12 +334,12 @@ class ImageStateReadReq
 {
   NmpBase base; //  Will not be encoded: `codec:"-"`
 
-  NmpMsg Msg() {
-    return MsgFromReq(this);
+  NmpMsg msg() {
+    return msgFromReq(this);
   }
 
   /// Encode the SMP Request fields to CBOR
-  void Encode(cbor.MapBuilder builder) {
+  void encode(cbor.MapBuilder builder) {
     // Add some map entries to the list.
     // Entries are added as a key followed by a value, this ordering is enforced.
     // Map keys can be integers or strings only, this is also enforced.
@@ -378,7 +378,7 @@ class ImageStateReadReq
   }
 */
 
-ImageStateReadReq NewImageStateReadReq() {
+ImageStateReadReq newImageStateReadReq() {
   var r = ImageStateReadReq();
   fillNmpReq(r, NMP_OP_READ, NMP_GROUP_IMAGE, NMP_ID_IMAGE_STATE);
   return r;
@@ -404,11 +404,11 @@ ImageStateReadReq NewImageStateReadReq() {
 //  nmxact/nmxutil/nmxutil.go
 //  Converted from Go: https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmxutil/nmxutil.go
 
-int nextNmpSeq = 0; //  Previously uint8
+int _nextNmpSeq = 0; //  Previously uint8
 bool nmpSeqBeenRead = false;
 
 /// Return the next SMP Message Sequence Number, 0 to 255. The first number is random.
-int NextNmpSeq() {
+int nextNmpSeq() {
   //  Returns uint8
   //  TODO: seqMutex.Lock()
   //  TODO: defer seqMutex.Unlock()
@@ -416,12 +416,12 @@ int NextNmpSeq() {
   if (!nmpSeqBeenRead) {
     //  First number is random
     var rng = new Random();
-    nextNmpSeq = rng.nextInt(256); //  Returns 0 to 255
+    _nextNmpSeq = rng.nextInt(256); //  Returns 0 to 255
     nmpSeqBeenRead = true;
   }
 
-  final val = nextNmpSeq;
-  nextNmpSeq = (nextNmpSeq + 1) % 256;
+  final val = _nextNmpSeq;
+  _nextNmpSeq = (_nextNmpSeq + 1) % 256;
   assert(val >= 0 && val <= 255);
   return val;
 }
@@ -432,17 +432,17 @@ int NextNmpSeq() {
 
 /// Result of an SMP operation
 abstract class Result {
-  int Status();
+  int status();
 }
 
 /// SMP Command
 abstract class Cmd {
   /// Transmits request and listens for response; blocking.
-  Result Run(Sesn s); //  Previously sesn.Sesn
-  void Abort();
+  Result run(Sesn s); //  Previously sesn.Sesn
+  void abort();
 
   //  TxOptions TxOptions();             //  Previously sesn.TxOptions
-  void SetTxOptions(TxOptions opt); //  Previously sesn.TxOptions
+  void setTxOptions(TxOptions opt); //  Previously sesn.TxOptions
 }
 
 /// Base Class for SMP Command
@@ -461,12 +461,12 @@ mixin CmdBase {
   }
   */
 
-  void SetTxOptions(TxOptions opt //  Previously sesn.TxOptions
+  void setTxOptions(TxOptions opt //  Previously sesn.TxOptions
       ) {
     this.txOptions = opt;
   }
 
-  void Abort() {
+  void abort() {
     if (this.curSesn != null) {
       //  TODO: this.curSesn.AbortRx(this.curNmpSeq);
     }
@@ -498,13 +498,14 @@ NmpRsp txReq(
     if (c.abortErr != null) {
       throw c.abortErr;
     }
-    c.curNmpSeq = m.Hdr.Seq;
+    c.curNmpSeq = m.hdr.seq;
     c.curSesn = s;
   }
 
   //  TODO: final rsp = sesn.TxRxMgmt(s, m, c.TxOptions());
   final rsp = ImageStateRsp();
-  final data = EncodeNmpPlain(m);
+  //final data = 
+  encodeNmpPlain(m);
 
   if (c != null) {
     //  TODO: Should not be null
@@ -591,32 +592,32 @@ const NMP_ID_SHELL_EXEC = 0;
 
 class ImageStateRsp implements NmpRsp {
   //  TODO
-  int Rc;
+  int rc;
   //  TODO
-  NmpHdr Hdr() {
+  NmpHdr hdr() {
     return NmpHdr(0, 0, 0, 0, 0, 0);
   }
 
   //  TODO
-  NmpMsg Msg() {
+  NmpMsg msg() {
     return NmpMsg(null, null);
   }
 
   //  TODO
-  void SetHdr(NmpHdr msg) {}
+  void setHdr(NmpHdr msg) {}
 }
 
 /// Bluetooth LE Session
 class Sesn {}
 
-Sesn GetSesn() {
+Sesn getSesn() {
   return Sesn();
 }
 
 /// Bluetooth LE Transmission Options
 class TxOptions {}
 
-TxOptions NewTxOptions() {
+TxOptions newTxOptions() {
   return TxOptions();
 }
 
@@ -630,27 +631,28 @@ void oldMain() {
 /// Compose a request to query firmware images on PineTime
 typed.Uint8Buffer composeRequest() {
   //  Create the SMP Request
-  final req = NewImageStateReadReq();
+  final req = newImageStateReadReq();
 
   //  Encode the SMP Message with CBOR
-  final msg = req.Msg();
-  final data = EncodeNmpPlain(msg);
+  final msg = req.msg();
+  final data = encodeNmpPlain(msg);
   return data;
 }
 
 /// Query firmware images on PineTime
 void testCommand() {
   //  Fetch the Bluetooth LE Session
-  final s = GetSesn();
+  final s = getSesn();
 
   //  Create the SMP Command
-  final c = NewImageStateReadCmd(); //  Previously xact.NewImageStateReadCmd()
+  final c = newImageStateReadCmd(); //  Previously xact.NewImageStateReadCmd()
 
   //  TODO: Set the Bluetooth LE transmission options
   //  c.SetTxOptions(nmutil.TxOptions());
 
   //  Transmit the SMP Command
-  final res = c.Run(s);
+  //final res = 
+  c.run(s);
 
   //  TODO: Handle SMP Response
   //  final ires = res.ImageStateReadResult;  //  Previously xact.ImageStateReadResult
