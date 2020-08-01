@@ -6,9 +6,11 @@ on:
   push:
     branches:
     - master
-    
-# on: push    # Default will running for every branch.
-    
+
+  pull_request:
+    branches:
+    - master
+
 jobs:
   build:
     # This job will run on ubuntu virtual machine
