@@ -91,8 +91,9 @@ class _DeviceState extends State<Device> {
                           Padding(
                             padding: EdgeInsets.only(top: 100.0),
                             child: Center(
-                              child: Image.asset('assets/my-pinetime.png') //// Location(location: device.location),
-                            ),
+                                child: Image.asset(
+                                    'assets/my-pinetime.png') //// Location(location: device.location),
+                                ),
                           ),
                           Center(
                             child: LastUpdated(device: device),

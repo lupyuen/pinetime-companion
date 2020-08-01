@@ -40,7 +40,8 @@ class FindDeviceScreen extends State<FindDevice> {
                                   return RaisedButton(
                                     child: Text('OPEN'),
                                     //  When pressed, return the BluetoothDevice
-                                    onPressed: () => Navigator.pop(context, device),
+                                    onPressed: () =>
+                                        Navigator.pop(context, device),
                                     /*
                                     onPressed: () => Navigator.of(context).push(
                                         MaterialPageRoute(

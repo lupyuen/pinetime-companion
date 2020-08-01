@@ -30,20 +30,19 @@ class Device extends Equatable {
   final String activeFirmwareVersion;
   final String standbyFirmwareVersion;
 
-  const Device({
-    this.condition,
-    this.formattedCondition,
-    this.minTemp,
-    this.temp,
-    this.maxTemp,
-    this.locationId,
-    this.created,
-    this.lastUpdated,
-    this.location,
-    this.bluetoothDevice,
-    this.activeFirmwareVersion,
-    this.standbyFirmwareVersion
-  });
+  const Device(
+      {this.condition,
+      this.formattedCondition,
+      this.minTemp,
+      this.temp,
+      this.maxTemp,
+      this.locationId,
+      this.created,
+      this.lastUpdated,
+      this.location,
+      this.bluetoothDevice,
+      this.activeFirmwareVersion,
+      this.standbyFirmwareVersion});
 
   @override
   List<Object> get props => [
@@ -64,8 +63,8 @@ class Device extends Equatable {
   static Device fromJson(dynamic json) {
     final consolidatedDevice = json['consolidated_Device'][0];
     return Device(
-      condition: _mapStringToDeviceCondition(
-          consolidatedDevice['Device_state_abbr']),
+      condition:
+          _mapStringToDeviceCondition(consolidatedDevice['Device_state_abbr']),
       formattedCondition: consolidatedDevice['Device_state_name'],
       minTemp: consolidatedDevice['min_temp'] as double,
       temp: consolidatedDevice['the_temp'] as double,
